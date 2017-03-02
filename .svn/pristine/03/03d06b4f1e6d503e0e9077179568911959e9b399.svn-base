@@ -1,0 +1,168 @@
+$(function() { 
+	loadDictByParent("area","areaSearch");
+	loadDictByParent("pollResType","pollResTypeSearch_");
+	var applyTable = $('#apply_table').DataTable({
+		processing: true,
+		serverSide: true,
+		lengthChange:false,
+		paging: true,
+		searching:false,
+		ordering: false,
+		info:false,
+		ajax: {
+			url : "../pollResource/searchAllPollResource",
+			type:'post'
+		},
+		columns:[
+		         {'data': 'id',
+		        	 'render':function(data){
+		        		 return "<input type='checkbox' id='" + data +"' name='qtype' value='" + data +"'>";
+		        	 }
+		         },
+		         {'data':'rivername'},
+		         {'data':'area'},
+		         {'data':'pollsourcename'},		         
+		         {'data':'pollsourcetypeStr'},
+		         {'data':'outfallcode'},
+		         {'data':'position'},
+		         {'data':'drainageto'},
+		         {'data':'polldescription'},
+		         {'data':'rectificationmeasures'},
+		         {'data':'therectificationresponsibilityunit'},
+		         {'data':'createTimeStr'},
+		         {'data':'id',
+		        	 'render':function(data){
+		        		 return '<a href="#" onclick="showPollResourceInfo(\''+data+'\');">查看详情</a>';
+		        	 }
+		         }
+		         ]
+	});
+	
+	
+	$('#searchBtn').on('click',function(){
+		var riverSearch = $("#riverSearch").val();
+		var areaSearch = $("#areaSearch").val();
+		var pollResType = $("#pollResTypeSearch_").val();
+		var param={
+				'rivername':riverSearch,
+				'area':areaSearch,
+				'pollsourcetype':pollResType
+		}
+		applyTable.settings()[0].ajax.data=param;
+		applyTable.ajax.reload();
+	});
+	
+	
+	$('#btn_upload').on('click',function(){
+		$("#dataUpload").modal('toggle');
+	});
+	
+	
+	$('#uploadXlsFile').change(function(){
+		var importFileName=$("#uploadXlsFile").val();
+	    if(importFileName=="" ||importFileName==null ){
+		   alert("文件不能为空，请选择文件!");
+		   return false;
+		}else{
+			var d1=/\.[^\.]+$/.exec(importFileName);  
+			 if(d1==".xls"||d1==".xlsx"){  
+				 var formData = new FormData($("#upload_form")[0]);
+				   $.ajax({
+						type : "POST",
+						url : "../pollResourceUpload/upload",
+						cache: false,
+						async: true,
+						contentType: false,  
+				        processData: false, 
+						data :  formData, 
+						dataType : "json",
+						success : function(data) {
+							if(data == true){
+								$("#dataUpload").modal('toggle');
+								$("#uploadXlsFile").val('');
+								applyTable.ajax.reload();
+							} else {
+								alert("产品名称与导入文件中产品不相同，导入失败");
+							}
+						},
+						error:function(data){
+							alert("文件导入失败！");
+						}
+					});	   
+			 }else{
+				 alert("文件格式不对，请选择xls格式文件！");  
+			 }
+			}
+	});
+	
+});
+
+
+function loadDictByParent(parent,eleId){
+	var data = {"dict":parent};
+	$.ajax({
+		url:'../river/findDict',
+		data:data,
+		dataType : "json",
+		async:false,
+		success:function(data){
+			$("#"+eleId).empty().append("<option value=''></option>");
+			$.each(data, function(i, value){
+				if(parent == "area"){
+					$("#"+eleId).append("<option>"+value.name+"</option>");
+				}else{
+					$("#"+eleId).append("<option value='"+value.code+"'>"+value.name+"</option>");
+				}
+				
+			});
+		},
+		error:function(data){
+			alert(data);
+		}
+		
+	});
+}
+
+function showPollResourceInfo(id){
+	$("#dictInfo").modal('toggle');
+	$.ajax({
+		type : "POST",
+		url : "../pollResource/findById",
+		data :  {'id':id}, 
+		success : function(data) {
+//			$("#info_riverCode").html(data.riverCode);
+			$("#info_area").html(data.area);
+			$("#info_coordinate").html(data.coordinate);
+			$("#info_position").html(data.position);
+			$("#info_riverName").html(data.rivername);
+			//TODO 左右岸
+			//TODO
+			$("#info_outfallcode").html(data.outfallcode);
+			$("#info_pollsourcetype").html(data.pollsourcetype);
+			$("#info_outfalltype").html(data.outfalltype);
+			
+			$("#info_pollsourcename").html(data.pollsourcename);
+			$("#info_streetname").html(data.streetname);
+			$("#info_streetmanager").html(data.streetmanager);
+			$("#info_village").html(data.village);
+			$("#info_villagemanager").html(data.villagemanager);
+			
+			
+			
+			
+			
+			$("#info_polldescription").html(data.polldescription);
+			$("#info_drainageto").html(data.drainageto);
+			$("#info_polldischarginglicense").html(data.polldischarginglicense);
+			$("#info_drainaglicense").html(data.drainaglicense);
+			$("#info_hasmeasures").html(data.hasmeasures);
+			$("#info_rectificationmeasures").html(data.rectificationmeasures);
+			$("#info_therectificationdataonsibilityunit").html(data.therectificationdataonsibilityunit);
+			$("#info_timeofcompletion").html(data.timeofcompletion);
+			$("#info_remark").html(data.remark);
+			$("#info_createTimeStr").html(data.createTimeStr);
+
+		}
+	});
+}
+

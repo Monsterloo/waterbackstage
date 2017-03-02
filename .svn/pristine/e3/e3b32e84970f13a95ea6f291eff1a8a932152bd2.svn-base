@@ -1,0 +1,5 @@
+.next_page_pic{
+	height:100px;
+	line-height:30px;
+	margin-bottom:100px;
+}

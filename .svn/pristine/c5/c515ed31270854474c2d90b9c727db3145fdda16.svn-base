@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+	<system.webServer>
+		<directoryBrowse enabled="true" />
+		<defaultDocument>
+			<files>
+				<add value="home.html" />
+			</files>
+		</defaultDocument>
+        <staticContent>
+            <mimeMap fileExtension=".json" mimeType="text/plain" />
+        </staticContent>
+	</system.webServer>
+	<system.web>
+		<compilation targetFramework="4.0" />
+		<pages controlRenderingCompatibilityVersion="3.5" clientIDMode="AutoID" /></system.web></configuration>

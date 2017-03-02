@@ -1,0 +1,164 @@
+
+投诉列表
+
+RequestSuccessful{“ListCount”:20,”ComplainList”:
+[{
+“UserId”:“483591556”,
+“Name”:”黄润”,
+”Photo”:”http://myPhotoAddress.com/Image/huangrun.png”,
+”CompainId”：”54515421894218”,
+”CompainNo”：”54515421894218”,
+”CompainType”：”54515421894218”,
+”Level”:”5”,”Title”:”大量污水排出，河涌水质非常黑臭。”,
+”Status”:”0”,
+”ComplainTime”:”2016-10-12 11:42:28”,
+”TimeDesc”:”两天前”,
+”DistrictId”:”872519”,
+”district”:”龙湖涌”,
+”Coordinate”:”114.21615874|25.16154891584”,
+”Address”:”广州·白云区龙不知道什么的路1025号”,
+”RepostCount”:”6”,
+”ReplayCount”:”6”,
+”Praise”:”16”,
+“PhotoList”:
+      {
+	“ListCount”:”3”,
+	”List”:
+	[
+	{“LocationId”:”546496”,”Href”:”/Image/242156.png”},
+	{“LocationId”:”546496”,”Href”:”/Image/242156.png”},
+	{“LocationId”:”546496”,”Href”:”/Image/242156.png”}
+	]
+     }
+}] 
+}
+
+
+用户信息：
+RequestSuccessful
+{
+“UserId”:“483591556”,
+“Name”:”黄润”,
+”PhotoHref”:”http://myPhotoAddress.com/Image/huangrun.png”,
+”Sex”:”男”，
+”Level”:”5”,
+”PhoneNum”:”18824863976”,
+”Address”:”广州市天河区”,
+”Signature”:”最美好不过失去的！”
+} 
+
+
+最近的河段信息：
+RequestSuccessful
+{
+“ReachId”:“4835915”,
+“ReachName”:”龙湖涌”
+}
+
+
+投诉信息
+RequestSuccessful
+{
+“UserId”:“483591556”,
+“Name”:”黄润”,
+”Photo”:”http://myPhotoAddress.com/Image/huangrun.png”,
+”Level”:”5”,
+”CompainId”：”54515421894218”,
+”CompainNo”：”54515421894218”,
+”CompainType”：”54515421894218”,
+”Title”:”大量污水排出，河涌水质非常黑臭。”,
+”Status”:”0”,
+”ComplainTime”:”2016-10-12 11:42:28”,
+”TimeDesc”:”两天前”,
+”DistrictId”:”872519”,
+”district”:”龙湖涌”,
+”Coordinate”:”114.21615874|25.16154891584”,
+”Address”:”广州·白云区龙不知道什么的路1025号”,
+“PhotoList”:
+	{
+	“ListCount”:”3”,
+	”List”:
+		[
+		{“LocationId”:”546496”,”Href”:”/Image/242156.png”},
+		{“LocationId”:”546496”,”Href”:”/Image/242156.png”},
+		{“LocationId”:”546496”,”Href”:”/Image/242156.png”}
+		]
+	},
+”RepostCount”:”6”,
+”ReplayCount”:”6”,
+”Praise”:”16”
+}
+
+
+
+赞的数量
+RequestSuccessful
+{
+“PRaiseCount”:””,
+”List”:
+	[
+	{“Href”:”/Image/546453.png”},
+	{“Href”:”/Image/546453.png”}
+	]
+}  
+
+
+回复列表：
+RequestSuccessful
+{
+“Count”:”185”,
+”List“：
+	[
+	{“UserId”:“483591556”,“Name”:”黄润”,”Photo”:”http://myPhotoAddress.com/Image/huangrun.png”,”Level”:”5”,”CompainId”：”54515421894218”,”ReplayId”:”5451842115248”,”Replay”:”速度快”,”ComplainTime”:”2016-10-12 11:42:28”,”TimeDesc”:”两天前”},
+	{“UserId”:“483591556”,“Name”:”黄润”,”Photo”:”http://myPhotoAddress.com/Image/huangrun.png”,”Level”:”5”,”CompainId”：”54515421894218”,”ReplayId”:”5451842115248”,”Replay”:”速度快”,”ComplainTime”:”2016-10-12 11:42:28”,”TimeDesc”:”两天前”}
+	]
+}
+
+
+
+
+河道信息
+RequestSuccessful
+{
+“ReachId”:“54561542”,
+”Title”:”广州市河长制公示牌”,
+“Name”:”田美河”,
+”Start”:”田美村”,
+”End”:”横潭村”,
+”Length”：”1600m”,
+”LeaderInfo”:
+	[
+	{“AreaLeader”:”李晓东”,”Phone”:””},
+	{“TownsLeader”:”李炳威”,”Phone”:”188xxxxxxxxx”},
+	{“VillageLeader”:”伍世波”,”Phone”:”188xxxxxxxxx”},
+	{“ManagementLeader”:”江慧峰”,”Phone”:”188xxxxxxxxx”}
+	]
+} 
+
+
+
+行政区域列表
+RequestSuccessful
+{
+“Count”:“100”,
+”List”:
+	[
+	{“Id”:”5423182518”,”Name”:”天河区”},
+	{“Id”:”5423182518”,”Name”:”天河区”}
+	]
+} 
+
+
+投诉列表
+RequestSuccessful
+{
+“Count”:“100”,
+”List”:
+	[
+	{“Id”:”5423182518”,”Name”:”工业废水排放”},
+	{“Id”:”5423182518”,”Name”:”生活污水排放”}
+	]
+} 
+
+
+

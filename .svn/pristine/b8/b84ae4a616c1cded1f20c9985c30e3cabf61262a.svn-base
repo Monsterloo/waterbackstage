@@ -1,0 +1,58 @@
+package com.hhh.fund.waterwx.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.hhh.fund.waterwx.util.StringUtil;
+
+public class comonFilter implements Filter{
+
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+		System.out.println("doing filter...");
+	}
+
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response,
+			FilterChain chain) throws IOException, ServletException {
+		
+		//TODO
+		
+		HttpServletRequest req = (HttpServletRequest)request;
+		String loc=req.getServletPath();
+
+		if(loc.contains("admin/login")==false
+				&&loc.contains("/assets/")==false
+				&&loc.contains("/css/")==false
+				&&loc.contains("/img/")==false
+				&&loc.contains("/js/")==false
+				&&loc.contains("/doc/")==false
+				&&loc.contains("/cache/")==false
+				&&loc.contains("/template/")==false){
+			HttpSession session =  req.getSession();
+			String username=(String)session.getAttribute("loginSuccess");
+			if(StringUtil.isBlank(username)||!"1".equals(username)){
+				HttpServletResponse res = (HttpServletResponse)response;
+				res.sendRedirect(req.getServletContext().getContextPath()+"/admin/login");
+				return;
+			}
+		}
+		chain.doFilter(request, response);
+	}
+
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

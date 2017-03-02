@@ -1,0 +1,121 @@
+/* CSS Document */
+
+*{margin:0;padding:0;}
+body{ font-family:"微软雅黑";background:#ebebeb;width:100%;height:auto;}
+a{text-decoration:none}
+
+
+/* 受理编号内容 */
+#main{width:98%;background:#fff;border:1px solid #ccc;margin:10px auto;}
+#main .bt{
+  font-size: 18px;
+  color: #999;
+  line-height: 32px;
+  border-bottom: 3px solid #27a02f;
+  width: 98%;
+  position: relative;
+  left: 1%;}
+#main .zpsc{
+ font-size: 16px;
+  color: #000;
+  width: 98%;
+  height: 17%;
+  min-height: 130px;
+  margin: 5px auto;
+  margin-bottom: 0px
+	}
+#main .zpsc .zpl{float:left;width:15%}
+#main .zpsc .zpl span{padding:10px;}
+#main .zpsc .zpr{float:left;width:85%}
+#main .zpsc .zpr img{width:20%;height:95%;max-width:142px;max-height:116px;}
+
+#main .wtlx{
+  font-size: 16px;
+  color: #000;
+  width: 98%;
+  min-height: 40px;
+  margin: 0 auto;
+  line-height:40px;
+	}
+.wtl{float:left;width:15%;}
+.wtl span{padding-left:10px;}
+.wtr{float:left;width:85%;color:#8B8A8A;}
+
+#main .wtlx2{
+  font-size: 16px;
+  color: #000;
+  width: 98%;
+  height:auto;
+  min-height: 250px;
+  margin: 0 auto;
+  line-height:40px;
+  
+	}
+#main .wtlx2 .gps{widht:100%;}
+#main .wtlx2 .gps img{width:100%;max-height:200px;}
+
+.clyj{width:98%;background:#fff;border:1px solid #ccc;margin:10px auto;}
+.clyj .wtlx{
+  font-size: 16px;
+  color: #000;
+  width: 98%;
+  min-height: 40px;
+  margin: 0 auto;
+  line-height:40px;
+	}
+.xt{border:1px solid #E4E4E4;width:98%;border-top:0px;margin:0 auto;}
+
+.fh{margin:0 auto;width:96%;background:#707070;min-height:40px;text-align:center;border-radius:5px;}
+.fh:hover{background:#434343}
+.fh a{font-size:20px;color:#fff;margin:0 auto;line-height: 40px;}
+
+/* 我要投诉 */
+.tupian{width:96%;margin:0 auto;margin-top:10px;}
+.tupian .ttp{font-size:16px; }
+.tupian .ttp span{color:#fd6e20;}
+.tupian .btp ul{ list-style:none;margin-top:10px;}
+.tupian .btp ul li{float:left;margin-left:20px;}
+.tupian .btp ul li:first-child{margin-left:0px;}
+.tupian .btp ul li img{width:104px; height:102px;}
+
+.leixing{width:96%;margin:0 auto;margin-top:30px;}
+.leixing .lxl{float:left;width:15%;height:40px;line-height:40px;min-width:76px;}
+.leixing .lxr{float:left;width:85%}
+
+.leixing select {
+   background: transparent;
+   width: 100%;
+   padding: 5px;
+   font-size: 16px;
+   border: 1px solid #ccc;
+   height: 40px;
+   -webkit-appearance: none; /*for chrome*/
+}
+.leixing .lxr{ 
+   height: 40px;
+   overflow: hidden;
+   background: url(../images/xlk.png) no-repeat right #fff;}
+   
+.wenti{width:96%;margin:0 auto;margin-top:30px;}
+.wenti span{color:#fd6e20;}
+.wenti .wtp input{ 
+  width: 100%;
+  border: 1px solid #ccc;
+  height: 100px;
+  margin-top: 10px;}
+.didian{width:96%;margin:0 auto;margin-top:20px;background:#fff;border: 1px solid #ccc;line-height:40px;}
+.didian span{padding-left:10px;}
+.gpss{width:96%;margin:0 auto;margin-top:20px;border: 1px solid #ccc;}
+.gpss img{width:100%;max-height:200px;}
+.sc{margin:0 auto;width:96%;background:#019dda;min-height:40px;text-align:center;border-radius:5px;margin-top:20px;}
+.sc:hover{background:#0474a0;}
+.sc a{font-size:20px;color:#fff;margin:0 auto;line-height: 40px;}
+.fh2{margin:10px auto;width:96%;background:#707070;min-height:40px;text-align:center;border-radius:5px;}
+.fh2:hover{background:#434343}
+.fh2 a{font-size:20px;color:#fff;margin:0 auto;line-height: 40px;}
+
+.clear{ clear:both}
+@media (max-width:768px){
+	#main .zpsc .zpl span{padding:0px;}
+	.wtl span{padding-left:0px;}
+	}

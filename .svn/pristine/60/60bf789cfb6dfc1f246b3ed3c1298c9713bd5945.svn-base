@@ -1,0 +1,70 @@
+var checkCode ;
+$( function(){
+	$(".login_type").click(function(){
+		var bgSrc=$(".login_type").css("background-image");
+		if(bgSrc.indexOf("wx_login")>=0){
+			bgSrc=bgSrc.replace("wx_login","pc_login");
+			$(".wx_login").css("display","block");
+			$(".pc_login").hide();
+			getwxEweima();
+		}
+		else{
+			bgSrc=bgSrc.replace("pc_login","wx_login");
+			$(".pc_login").show();
+			$(".wx_login,.wx_login_eweima").css("display","none");
+			clearInterval(checkCode);
+		}
+		$(".login_type").css("background-image",bgSrc);
+	})
+	
+})
+
+function getwxEweima()
+{
+	var loc=location.href;
+	loc=loc.replace("/admin/login","/outFall/getwxEweima")
+	loc+="?Width=220&Height=220";
+	var ukey=$("#UKey").val();
+	loc+="&CodeText="+ukey;
+	loc+="&rnd="+Math.random();
+	$(".wx_login_eweima").attr("src",loc).css("display","block");	
+	
+	checkCode = setInterval(CheckWeiXinCode, 3000);
+}
+
+function CheckIsScan(){
+	if(hr_checkScan==false){return;}
+	var result;
+	var ukey=$("#UKey").val();
+	$.ajax({
+        url: "Ashx/CheckCacheUser.ashx?UKey=" + ukey + "&rnd=" + Math.random(),
+        async: false,
+        success: function (data) {
+            result = data;
+        }
+    });
+	if (result == '1') {
+        clearInterval(checkCode);
+        $("#frmLogin").submit();
+    }
+    else if (result.indexOf("HasScan") >= 0) {
+        result = result.replace("HasScan", "");
+        SetMask(result);
+    }
+    else {
+        $("#ScanMask").remove();
+    }
+}
+
+function SetMask(name) {
+    var _maskHtml = "<div Id='ScanMask' style='background:rgba(0,0,0,0.5);width:200px;height:200px;position: absolute;top: -19px;right: 0px;text-align:center;color:#fff'>"
+                  + "<img src='../../Include/Image/Home/WeiXinICon1.png' style='margin-top:30px;width:100px;height:100px;'><br/>"
+                  + "<span style='background:#62bb4b;width:160px;height:26px;border-radius:13px;display:block;line-height:26px;margin-left:21px;font-size: 12px;'>" + name + "扫码成功!</span></div>"
+    $("#ScanMask").remove();
+    $("#wx_login").append(_maskHtml);
+}
+
+
+
+
+

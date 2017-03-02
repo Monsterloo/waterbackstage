@@ -1,0 +1,139 @@
+package com.hhh.fund.waterwx.controller;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.hhh.fund.waterwx.entity.SysUcenterDict;
+import com.hhh.fund.waterwx.service.ResponsibilityService;
+import com.hhh.fund.waterwx.service.SwjPollutantSourceService;
+import com.hhh.fund.waterwx.util.IOUtils;
+import com.hhh.fund.waterwx.webmodel.OutfallPolluateResourceBean;
+import com.hhh.fund.waterwx.webmodel.PollutantSourceBean;
+import com.hhh.fund.waterwx.webmodel.SmsPage;
+import com.hhh.fund.web.model.DataTablesResult;
+
+@Controller
+@RequestMapping("/pollResource")
+public class PollResourceController {
+
+	@Autowired
+	private SwjPollutantSourceService pSourceService;
+	
+	@Autowired
+	private ResponsibilityService responseService;
+	
+	private Map<String,String>dictMap = new HashMap<String,String>();
+	
+	
+	@RequestMapping("/toPollResourceList")
+	public String toPollResourceList(){
+		return "waterwx/poll_resource_list";
+	}
+	
+	@RequestMapping("/toPollResourceStatistics")
+	public String toPollResourceStatistics(){
+		return "waterwx/pollResourceStatistics";
+	}
+	
+	//downloadTemplate
+	
+	@RequestMapping("/downloadTemplate")
+	public void downloadTemplate(HttpServletRequest request,HttpServletResponse response){
+		try {
+		    
+			ServletContext sc = request.getServletContext();
+			String realPath = sc.getRealPath("/template")+File.separator+"pollutant-source-template.xlsx";
+			System.out.println(realPath);
+			InputStream in = new FileInputStream(realPath);
+			
+			response.addHeader("Content-Disposition", "attachment;filename=" + new String("pollutant-source-template.xlsx"));
+			response.setContentType("application/octet-stream");
+			response.addHeader("Content-Length", "" + in.available());
+			OutputStream os = response.getOutputStream();
+			byte[]buff = new byte[1024];
+			int i = 0;
+			while((i=in.read(buff))!=-1){
+				os.write(buff);// 输出文件
+				os.flush();
+			}
+			os.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 查询所有的河道
+	 * */
+	@RequestMapping(value="/searchAllPollResource")
+	public @ResponseBody DataTablesResult<PollutantSourceBean> searchAllResponse(@RequestParam(value = "start",defaultValue="0") int start,
+			@RequestParam(value = "length",defaultValue="10") int pageSize,
+			PollutantSourceBean bean){
+		int page = getPage(start, pageSize);
+		PageRequest pr = new PageRequest(page, pageSize);
+		int t= pr.getPageNumber();
+		SmsPage<PollutantSourceBean> records = null;
+		records = pSourceService.findAll(pr,bean);
+		
+		List<SysUcenterDict> list= responseService.findDict("pollResType");
+		changeToMap(list,dictMap);
+		changePollSourceTypeShow(records,dictMap);
+		
+		DataTablesResult<PollutantSourceBean> dtr = new DataTablesResult<PollutantSourceBean>();
+		dtr.setData(records.getContent());
+		dtr.setRecordsFiltered(new Long(records.getTotalElements()).intValue());
+		dtr.setRecordsTotal(records.getTotalPages());
+		return dtr;
+	}
+
+	private void changePollSourceTypeShow(SmsPage<PollutantSourceBean> records, Map<String, String> dictMap2) {
+		List<PollutantSourceBean> data = records.getContent();
+		for(PollutantSourceBean bean:data){
+			bean.setPollsourcetypeStr(dictMap2.get(bean.getPollsourcetype()));
+		}
+		
+	}
+
+	/**
+	 * 修改河道，返回数据
+	 * */
+	@RequestMapping(value="/findById")
+	public @ResponseBody PollutantSourceBean findById(String id){
+		PollutantSourceBean bean = pSourceService.findById(id);
+		return bean;
+	}	
+	
+	
+	private int getPage(int start, int pageSize) {
+		return (int)Math.floor((double)start/pageSize);
+	}
+	
+	private void changeToMap(List<SysUcenterDict> list, Map<String, String> map) {
+		if(!map.isEmpty()){
+			map.clear();
+		}
+		for(SysUcenterDict dict:list){
+			map.put(dict.getCode(), dict.getName());
+		}
+	}
+	
+}
